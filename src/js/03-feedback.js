@@ -1,7 +1,7 @@
 import throttle from 'lodash.throttle';
 
 const inputMail = document.querySelector('input');
-const massageText = document.querySelector('textarea');
+const massage = document.querySelector('textarea');
 const form = document.querySelector('form');
 
 const KEY_LOCAL = 'feedback-form-state';
@@ -14,13 +14,13 @@ form.addEventListener('submit', throttle(onSubmit, 500));
 function onInput(e) {
   localStorage.setItem(
     KEY_LOCAL,
-    JSON.stringify({ email: inputMail.value, message: massageText.value })
+    JSON.stringify({ email: inputMail.value, message: massage.value })
   );
 }
 
 function onSubmit(e) {
   e.preventDefault();
-  console.log({ email: inputMail.value, message: massageText.value });
+  console.log({ email: inputMail.value, message: massage.value });
   localStorage.removeItem(KEY_LOCAL);
   e.currentTarget.reset();
 }
@@ -29,7 +29,7 @@ try {
   formData = JSON.parse(localStorage.getItem(KEY_LOCAL));
   if (formData !== null) {
     inputMail.value = formData.email;
-    massageText.value = formData.message;
+    massage.value = formData.message;
   }
 } catch (error) {
   console.log(error);
